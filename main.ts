@@ -9,16 +9,17 @@ function delay(ms: number) {
 }
 
 async function main() {
+    const lastAnime = 15000
     fs.writeFile('data/data.json', "[", ()=>{})
-    for( let i = 1; i < 15000; i++ ){
+    for( let i = 1; i < lastAnime; i++ ){
         console.log("Fetching anime n°"+i)
-        await fetchAndSave(i)
+        await fetchAndSave(i, i==lastAnime)
         await delay(20000)
     }
     fs.writeFile('data/data.json', "]", ()=>{})
 }
 
-async function fetchAndSave(id: number){
+async function fetchAndSave(id: number, isLast: boolean){
     const url = getAnimeById_URL.replace("{id}", id.toString())
     console.log(url)
     const res = await axios.get(url, {timeout: 10000})
@@ -36,7 +37,7 @@ async function fetchAndSave(id: number){
     if(res){
         res.id = new_id
         new_id++
-        await fs.appendFile('data/data.json', JSON.stringify(res)+",", ()=>{})
+        await fs.appendFile('data/data.json', JSON.stringify(res)+isLast?"":",", ()=>{})
     }
 }
 

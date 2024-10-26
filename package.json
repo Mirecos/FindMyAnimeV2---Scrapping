@@ -13,7 +13,8 @@
     "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "@types/node": "^22.7.3"
+    "@types/node": "^22.7.3",
+    "tsx": "^4.19.1"
   },
-  "module": "nodenext"
+  "type": "module"
 }
